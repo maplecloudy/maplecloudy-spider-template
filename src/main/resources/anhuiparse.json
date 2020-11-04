@@ -1,0 +1,38 @@
+{
+    "name": "安徽省政府采购网",
+    "author":"kim",
+    "dicts": [
+        {
+            "pageName": "首页",
+            "urlRegex": "http://www.ccgp-anhui.gov.cn/"
+        },
+        {
+            "pageName": "列表第一页",
+            "urlRegex": "http://www.ccgp-anhui.gov.cn/cmsNewsController/getCgggNewsList.do?channelCode=cggg"
+        },
+        {
+            "pageName": "列表页",
+            "urlRegex": "http://www.ccgp-anhui.gov.cn/cmsNewsController/getCgggNewsList.do\\\\?pageNum=\\\\d"
+        },
+        {
+            "pageName": "详情页",
+            "urlRegex": "http://www.ccgp-anhui.gov.cn/cmsNewsController/cmsNewsDetail.do\\\\?newsId=."
+        }
+    ],
+    "seeds": [
+        {
+            "url": "http://www.ccgp-anhui.gov.cn/",
+            "anchor": "首页"
+        }
+    ],
+    "updates": [
+        {
+            "url": "http://www.ccgp-anhui.gov.cn/cmsNewsController/getCgggNewsList.do?channelCode=cggg",
+            "anchor": "列表第一页"
+        },
+        {
+            "url": "http://www.ccgp-anhui.gov.cn/cmsNewsController/getCgggNewsList.do?pageNum=2",
+            "anchor": "列表第二页"
+        }
+    ]
+}
