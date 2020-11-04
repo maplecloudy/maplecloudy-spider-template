@@ -33,7 +33,6 @@ public class ANhuishengzhengfucaigouwangTermplate extends AbstractTemplate {
 
   }
   
-  @Override
   public ParseData parse(Outlink url, Content content, RunMode runMode) {
   	
   	ParseData parseData = new ParseData();
