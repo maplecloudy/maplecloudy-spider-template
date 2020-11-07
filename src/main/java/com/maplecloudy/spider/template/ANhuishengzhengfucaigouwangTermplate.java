@@ -1,13 +1,13 @@
 package com.maplecloudy.spider.template;
 
-import java.net.MalformedURLException;
-import java.util.List;
-import java.util.Map;
-
 import com.maplecloudy.spider.parse.AbstractTemplate;
 import com.maplecloudy.spider.parse.ParseData;
 import com.maplecloudy.spider.schema.Content;
 import com.maplecloudy.spider.schema.Outlink;
+
+import java.net.MalformedURLException;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 安徽省政府采购网 解析模板
@@ -33,6 +33,7 @@ public class ANhuishengzhengfucaigouwangTermplate extends AbstractTemplate {
 
   }
   
+  @Override
   public ParseData parse(Outlink url, Content content, RunMode runMode) {
   	
   	ParseData parseData = new ParseData();

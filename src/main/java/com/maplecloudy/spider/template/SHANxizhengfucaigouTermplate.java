@@ -2,16 +2,19 @@ package com.maplecloudy.spider.template;
 
 import com.maplecloudy.spider.parse.AbstractTemplate;
 import com.maplecloudy.spider.parse.ParseData;
+import com.maplecloudy.spider.protocol.HttpParameters;
 import com.maplecloudy.spider.protocol.httpmethod.HttpUtils;
 import com.maplecloudy.spider.schema.Content;
 import com.maplecloudy.spider.schema.CrawlDatum;
 import com.maplecloudy.spider.schema.Outlink;
+import org.apache.http.message.BasicNameValuePair;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.spark_project.guava.collect.Lists;
+import parquet.org.codehaus.jackson.map.ObjectMapper;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -22,33 +25,31 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * 北京市丰台区采购网 解析模板
+ * 陕西政府采购 解析模板
  * <p>
  * Author yanzhen
- * Date  2020-10-30
+ * Date  2020-10-31
  */
-public class BEIjingshifengtaiqucaigouwangTermplate extends AbstractTemplate {
+public class SHANxizhengfucaigouTermplate extends AbstractTemplate {
 
-  public BEIjingshifengtaiqucaigouwangTermplate() throws MalformedURLException {
-    dicts = Lists.newArrayList();
+  public SHANxizhengfucaigouTermplate() throws MalformedURLException {
     // 模板名字，请以网址全程为准
-    name = "北京市丰台区采购网";
-    // 该网站的字符编码 charset eg：utf-8、GBK
+    name = "陕西政府采购";
     // 爬虫种子页面
-    addSeedLink("http://223.72.216.114/", "首页");
+    addSeedLink("http://www.ccgp-shaanxi.gov.cn/", "首页");
     // 爬虫更新的需要的链接
-    addUpdateLink("http://223.72.216.114/ftggzy/jyxxzc/index.jhtml", "列表第一页");
-    addUpdateLink("http://223.72.216.114/ftggzy/jyxxzc/index_2.jhtml", "列表第二页");
+    addUpdateLink("http://www.ccgp-shaanxi.gov.cn/notice/noticeaframe.do?isgovertment=&noticetype=3&pg=1", "列表第一页");
+    addUpdateLink("http://www.ccgp-shaanxi.gov.cn/notice/noticeaframe.do?isgovertment=&noticetype=3&pg=2", "列表第二页");
     // 网站所有有的链接类型，以及对应的正则
-    addDict("首页", "http://223.72.216.114/", "GET", "UTF-8");
-    addDict("列表第一页", "http://223.72.216.114/ftggzy/\\w+/index.jhtml", "GET", "UTF-8");
-    addDict("列表页", "http://223.72.216.114/ftggzy/\\w+/index_\\d+.jhtml", "GET", "UTF-8");
-    addDict("详情页", "http://223.72.216.114/ftggzy/\\w+/\\d+.jhtml", "GET", "UTF-8");
+    addDict("首页", "http://www.ccgp-shaanxi.gov.cn/", "GET", "utf-8");
+    addDict("列表第一页", "http://www.ccgp-shaanxi.gov.cn/notice/noticeaframe.do\\?isgovertment=&noticetype=\\d+&pg=1", "POST", "utf-8");
+    addDict("列表页", "http://www.ccgp-shaanxi.gov.cn/notice/noticeaframe.do\\?isgovertment=&noticetype=\\d+&pg=\\d+", "POST", "utf-8");
+    addDict("详情页", "http://www.ccgp-shaanxi.gov.cn:80/notice/noticeDetail.do\\?noticeguid=\\w", "GET", "utf-8");
 
   }
 
   @Override
-  public ParseData parse(Outlink url, Content content, RunMode runMode) throws UnsupportedEncodingException, MalformedURLException {
+  public ParseData parse(Outlink url, Content content, RunMode runMode) throws IOException {
 
     ParseData parseData = new ParseData();
     if (matches(url, "首页")) {
@@ -64,19 +65,31 @@ public class BEIjingshifengtaiqucaigouwangTermplate extends AbstractTemplate {
       genXIANGqingyeLinks(parseData.outLinks, url, content, runMode);
       genXIANGqingyeDatas(parseData.dataMap, url, content, runMode);
     }
+
     return parseData;
   }
 
   //从[首页]提取链接
-  public void genSHOUyeLinks(List<Outlink> outlinks, Outlink url, Content content, RunMode runMode) throws UnsupportedEncodingException, MalformedURLException {
+  public void genSHOUyeLinks(List<Outlink> outlinks, Outlink url, Content content, RunMode runMode) throws IOException {
     if (!(runMode == RunMode.BOTH || runMode == RunMode.FETCH))
       return;
-    Outlink outlink = new Outlink("http://223.72.216.114/ftggzy/jyxxzc/index.jhtml","");
-    outlinks.add(outlink);
-    Outlink outlink1 = new Outlink("http://223.72.216.114/ftggzy/jyxxzc/index.jhtml", "");
-    outlinks.add(outlink1);
-  }
 
+    String[] noticeType = new String[]{"3", "5", "4", "6", "99", "1", "301",};
+    for (int i = 0; i < noticeType.length; i++) {
+      String newUrl = "http://www.ccgp-shaanxi.gov.cn/notice/noticeaframe.do?isgovertment=&noticetype=" + noticeType[i] + "&pg=1";
+      Outlink outlink = new Outlink(newUrl,"");
+      HttpParameters httpParameters = new HttpParameters();
+      httpParameters.setType("post");
+      BasicNameValuePair[] data = {new BasicNameValuePair("page.pageNum", "1")};
+      String entity = new org.codehaus.jackson.map.ObjectMapper().writeValueAsString(data);
+      httpParameters.getMap().put("x-www-form-urlencoded", entity);
+      httpParameters.setContentType(
+          "application/x-www-form-urlencoded; charset=UTF-8");
+      httpParameters.setMethod("http");
+      outlink.addExtend(httpParameters.getMap());
+      outlinks.add(outlink);
+    }
+  }
 
   //从[首页]提取数据
   public void genSHOUyeDatas(Map<String, String> dataMap, Outlink url, Content content, RunMode runMode) {
@@ -86,32 +99,35 @@ public class BEIjingshifengtaiqucaigouwangTermplate extends AbstractTemplate {
   }
 
   //从[列表第一页]提取链接
-  public void genLIEbiaodiyiyeLinks(List<Outlink> outlinks, Outlink url, Content content, RunMode runMode) throws UnsupportedEncodingException, MalformedURLException {
-    if (!(runMode == RunMode.BOTH || runMode == RunMode.FETCH)) {
+  public void genLIEbiaodiyiyeLinks(List<Outlink> outlinks, Outlink url, Content content, RunMode runMode) throws IOException {
+    if (!(runMode == RunMode.BOTH || runMode == RunMode.FETCH))
       return;
+
+    int pageNo = 11064;
+    for (int i = 2; i <= pageNo; i++) {
+      Outlink outlink = new Outlink(url.getUrl().split("&pg")[0] + "&pg=" + i,"");
+      HttpParameters httpParameters = new HttpParameters();
+      httpParameters.setType("post");
+      BasicNameValuePair[] data = {
+          new BasicNameValuePair("page.pageNum", String.valueOf(i))};
+      String entity = new org.codehaus.jackson.map.ObjectMapper().writeValueAsString(data);
+      httpParameters.getMap().put("x-www-form-urlencoded", entity);
+      httpParameters.setContentType(
+          "application/x-www-form-urlencoded; charset=UTF-8");
+      httpParameters.setMethod("http");
+      outlink.addExtend(httpParameters.getMap());
+      outlinks.add(outlink);
     }
 
     String html = new String(content.getContent(), "utf-8");
     Document document = Jsoup.parse(html);
-    Elements select = document.select("div>ul>li>div>a");
-    for (Element element : select) {
-      String href = element.attr("href");
-      if (href != null && href.contains("http://223.72.216.114")) {
-        Outlink outlink = new Outlink(href,"");
-        outlinks.add(outlink);
-      }
-    }
-
-
-    Element element = document.select(".pages-list").get(0);
-    Integer page = Integer.valueOf(element.text().split("页 首页")[0].split("/")[1]);
-    String typeModule = url.getUrl().split("ftggzy/")[1].split("index")[0];
-    if (page != null) {
-      for (int i = 2; i <= page; i++) {
-        String pageDetail = "http://223.72.216.114" + typeModule + "index_" + i + ".jhtml";
-        Outlink outlink2 = new Outlink(pageDetail,"");
-        outlinks.add(outlink2);
-      }
+    Elements tbody = document.getElementsByTag("tbody");
+    Elements tr = tbody.select("tr");
+    for (Element ele : tr) {
+      Elements title = ele.getElementsByAttribute("title");
+      String href = title.select("a").attr("href");
+      Outlink outlink = new Outlink(href,"");
+      outlinks.add(outlink);
     }
   }
 
@@ -124,18 +140,18 @@ public class BEIjingshifengtaiqucaigouwangTermplate extends AbstractTemplate {
 
   //从[列表页]提取链接
   public void genLIEbiaoyeLinks(List<Outlink> outlinks, Outlink url, Content content, RunMode runMode) throws UnsupportedEncodingException, MalformedURLException {
-    if (!(runMode == RunMode.BOTH || runMode == RunMode.FETCH)) {
+    if (!(runMode == RunMode.BOTH || runMode == RunMode.FETCH))
       return;
-    }
+
     String html = new String(content.getContent(), "utf-8");
-    Document document = Jsoup.parse(html);
-    Elements select = document.select("div>ul>li>div>a");
-    for (Element element : select) {
-      String href = element.attr("href");
-      if (href != null && href.contains("http://223.72.216.114")) {
-        Outlink outlink = new Outlink(href,"");
-        outlinks.add(outlink);
-      }
+    Document doc = Jsoup.parse(html);
+    Elements tbody = doc.getElementsByTag("tbody");
+    Elements tr = tbody.select("tr");
+    for (Element ele : tr) {
+      Elements title = ele.getElementsByAttribute("title");
+      String attr = title.select("a").attr("href");
+      Outlink outlink = new Outlink(attr,"");
+      outlinks.add(outlink);
     }
   }
 
@@ -144,7 +160,6 @@ public class BEIjingshifengtaiqucaigouwangTermplate extends AbstractTemplate {
     if (!(runMode == RunMode.BOTH || runMode == RunMode.PARSE))
       return;
 
-
   }
 
   //从[详情页]提取链接
@@ -152,27 +167,28 @@ public class BEIjingshifengtaiqucaigouwangTermplate extends AbstractTemplate {
     if (!(runMode == RunMode.BOTH || runMode == RunMode.FETCH))
       return;
 
+
   }
 
   //从[详情页]提取数据
   public void genXIANGqingyeDatas(Map<String, String> dataMap, Outlink url, Content content, RunMode runMode) throws UnsupportedEncodingException, MalformedURLException {
     if (!(runMode == RunMode.BOTH || runMode == RunMode.PARSE))
       return;
+
     String html = new String(content.getContent(), "utf-8");
     Document doc = Jsoup.parse(html);
     String text = doc.text();
     System.out.println(text);
-    Elements contentElements = doc.select(".containerDiv-right.containerDiv-right-add");
+    Elements contentElements = doc.select(".contain.detail-con");
     String contentHtml = contentElements.get(0).html();
-//        System.out.println(contentHtml);
+//    System.out.println(contentHtml);
 
     //源地址
     dataMap.put("url", url.getUrl());
     //来源网站
     dataMap.put("web", (new URL(url.getUrl()).getHost()));
     //标题
-    dataMap.put("title", doc.select(".contitle").get(0).text());
-    String title = doc.select(".contitle").get(0).text();
+    dataMap.put("title", doc.select(".content-tit").get(0).text());
     //副标题
     dataMap.put("bakeTitle", "");
     //内容
@@ -210,7 +226,7 @@ public class BEIjingshifengtaiqucaigouwangTermplate extends AbstractTemplate {
       dataMap.put("projectStatus", "挂牌");
     } else dataMap.put("projectStatus", "招标");
     //项目所在省份
-    dataMap.put("province", "北京市");
+    dataMap.put("province", "陕西省");
     //项目所在市
 //        String city = "行政区域 ([\u4E00-\u9FA5]+).+";
 //        Pattern compileCity = Pattern.compile(city);
@@ -219,11 +235,11 @@ public class BEIjingshifengtaiqucaigouwangTermplate extends AbstractTemplate {
 //          bm.setCounty(matcherCity.group(1));
 //        }
     //项目所在市
-    dataMap.put("city", "丰台区");
+    dataMap.put("city", "");
     //项目所在县
     dataMap.put("county", "");
     //无法区分地区时放置地区
-    dataMap.put("district", "丰台区");
+    dataMap.put("district", "");
     //采购单位
     String purchaseUnit = "采购单位[\\s*|:|：]+([\u4E00-\u9FA5]+).+";
     Pattern compilePurchaseUnit = Pattern.compile(purchaseUnit);
@@ -427,7 +443,12 @@ public class BEIjingshifengtaiqucaigouwangTermplate extends AbstractTemplate {
       dataMap.put("bidOpeningTime", matcherBidOpeningTime2.group(1));
     }
     //项目概况
-    dataMap.put("summary", "");
+    String summary = "项目概况[\\s*|:|：]+([\u4E00-\u9FA5]+).+";
+    Pattern compileSummary = Pattern.compile(summary);
+    Matcher matcherSummary = compileSummary.matcher(text);
+    if (matcherSummary.find()) {
+      dataMap.put("summary", matcherSummary.group(1));
+    }
     //中标单位
     String bidUnit = "中标供应商[\\s*|:|：]+([\u4E00-\u9FA5]+).+";
     Pattern compileBidUnit = Pattern.compile(bidUnit);
@@ -515,23 +536,29 @@ public class BEIjingshifengtaiqucaigouwangTermplate extends AbstractTemplate {
     dataMap.put("route", "");
     //备用key
     dataMap.put("id", url.url);
-
   }
 
   public static void main(String[] args) throws Exception {
     String url;
-    url = "http://223.72.216.114/";
-//    url = "http://223.72.216.114/ftggzy/jyxxzc/index.jhtml";
-//    url = "http://223.72.216.114/ftggzy/jyxxzc/index_3.jhtml";
-//    url = "http://223.72.216.114/ftggzy/jyxxzccj/1236.jhtml";
-//    url = "http://223.72.216.114/ftggzy/jyxxzccg/1689.jhtml";
-//    url = "http://223.72.216.114/ftggzy/jyxxzccj/1743.jhtml";
-//    url = "http://223.72.216.114/ftggzy/jyxxzccj/1733.jhtml";
+    url = "http://www.ccgp-shaanxi.gov.cn/";
+//    url = "http://www.ccgp-shaanxi.gov.cn/notice/noticeaframe.do?isgovertment=&noticetype=3&pg=1";
+    url = "http://www.ccgp-shaanxi.gov.cn/notice/noticeaframe.do?isgovertment=&noticetype=3&pg=5";
+    url = "http://www.ccgp-shaanxi.gov.cn:80/notice/noticeDetail.do?noticeguid=8a85be31751aad3101757915f28d7c2a";
     HttpUtils hp = HttpUtils.getInstance();
     CrawlDatum crawlDatum = new CrawlDatum();
+    HttpParameters httpParameters = new HttpParameters();
+    httpParameters.setType("post");
+    BasicNameValuePair[] data = {
+        new BasicNameValuePair("page.pageNum", "2")};
+    String entity = new ObjectMapper().writeValueAsString(data);
+    httpParameters.getMap().put("x-www-form-urlencoded", entity);
+    httpParameters.setContentType(
+        "application/x-www-form-urlencoded; charset=UTF-8");
+    httpParameters.setMethod("http");
+    crawlDatum.setExtendData(httpParameters.getMap());
     Content content = hp.getProtocolOutput(url, crawlDatum).getContent();
     Outlink outlink = new Outlink(url, "");
-    BEIjingshifengtaiqucaigouwangTermplate parse = new BEIjingshifengtaiqucaigouwangTermplate();
+    SHANxizhengfucaigouTermplate parse = new SHANxizhengfucaigouTermplate();
     ParseData parseData = parse.parse(outlink, content, RunMode.BOTH);
     Map<String, String> map = parseData.dataMap;
     List<Outlink> outLinks = parseData.outLinks;
@@ -547,5 +574,4 @@ public class BEIjingshifengtaiqucaigouwangTermplate extends AbstractTemplate {
 //    JSONObject jsonMap = JSONObject.fromObject(map);
 //    System.out.print("bidmodel=" + jsonMap);
   }
-
 }
