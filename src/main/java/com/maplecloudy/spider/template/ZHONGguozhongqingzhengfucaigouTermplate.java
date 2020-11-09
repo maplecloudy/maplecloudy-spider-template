@@ -46,7 +46,7 @@ public class ZHONGguozhongqingzhengfucaigouTermplate extends AbstractTemplate {
 
   }
 
-  @Override
+
   public ParseData parse(Outlink url, Content content, RunMode runMode) throws UnsupportedEncodingException, JSONException, MalformedURLException {
 
     ParseData parseData = new ParseData();

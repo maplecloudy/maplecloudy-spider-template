@@ -32,7 +32,7 @@ public class HUnanshengcaigouwangTermplate extends AbstractTemplate {
     // 模板名字，请以网址全程为准
     name = "湖南省采购网";
     // 爬虫种子页面
-    addSeedLink("http://223.72.216.114/", "首页");
+    addSeedLink("https://www.hnsggzy.com/", "首页");
     // 爬虫更新的需要的链接
     addUpdateLink("https://www.hnsggzy.com/gczb/index.jhtml", "列表第一页");
     addUpdateLink("https://www.hnsggzy.com/jygk/index_2.jhtml", "列表第二页");
@@ -44,7 +44,6 @@ public class HUnanshengcaigouwangTermplate extends AbstractTemplate {
 
   }
 
-  @Override
   public ParseData parse(Outlink url, Content content, RunMode runMode) throws UnsupportedEncodingException, MalformedURLException {
 
     ParseData parseData = new ParseData();

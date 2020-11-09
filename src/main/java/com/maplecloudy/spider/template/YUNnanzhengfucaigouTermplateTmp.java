@@ -44,7 +44,6 @@ public class YUNnanzhengfucaigouTermplateTmp extends AbstractTemplate {
 
   }
 
-  @Override
   public ParseData parse(Outlink url, Content content, RunMode runMode) throws IOException, JSONException {
 
     ParseData parseData = new ParseData();

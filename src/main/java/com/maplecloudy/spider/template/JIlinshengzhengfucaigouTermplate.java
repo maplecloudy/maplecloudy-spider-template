@@ -49,7 +49,6 @@ public class JIlinshengzhengfucaigouTermplate extends AbstractTemplate {
 
   }
 
-  @Override
   public ParseData parse(Outlink url, Content content, RunMode runMode) throws IOException {
 
     ParseData parseData = new ParseData();
@@ -552,7 +551,7 @@ public class JIlinshengzhengfucaigouTermplate extends AbstractTemplate {
     String url;
     url = "http://www.ccgp-jilin.gov.cn/";
     url = "http://www.ccgp-jilin.gov.cn/shopHome/morePolicyNews.action?categoryId=124,125";
-    url = "http://www.ccgp-jilin.gov.cn/shopHome/morePolicyNews.action?page=2";
+//    url = "http://www.ccgp-jilin.gov.cn/shopHome/morePolicyNews.action?page=2";
 //        url = "http://www.ccgp-jilin.gov.cn/helpFront/gotoHelpFrontList.action?articleId=148739";
 //        url = "http://www.ccgp-jilin.gov.cn/helpFront/gotoHelpFrontList.action?articleId=155679";
     HttpUtils hp = HttpUtils.getInstance();

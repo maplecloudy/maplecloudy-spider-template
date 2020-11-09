@@ -95,7 +95,7 @@ public class JIANGsushengzhengfucaigouwangTermplate extends AbstractTemplate {
       System.out.println(href);
       if (href != null && !href.contains("../../")) {
         String href1 = href.substring(1);
-        Outlink outlink = new Outlink(url + href1, "");
+        Outlink outlink = new Outlink(url.getUrl() + href1, "");
         outlinks.add(outlink);
       } else {
         String href2 = href.substring(4);
@@ -564,8 +564,8 @@ public class JIANGsushengzhengfucaigouwangTermplate extends AbstractTemplate {
     String url;
     url = "http://www.ccgp-jiangsu.gov.cn/";
     url = "http://www.ccgp-jiangsu.gov.cn/ggxx/dylygg/";
-    url = "http://www.ccgp-jiangsu.gov.cn/ggxx/zgysgg/index_1.html";
-        url = "http://www.ccgp-jiangsu.gov.cn/ggxx/zgysgg/shengji/202007/t20200730_701153.html";
+//    url = "http://www.ccgp-jiangsu.gov.cn/ggxx/zgysgg/index_1.html";
+//        url = "http://www.ccgp-jiangsu.gov.cn/ggxx/zgysgg/shengji/202007/t20200730_701153.html";
     HttpUtils hp = HttpUtils.getInstance();
     CrawlDatum crawlDatum = new CrawlDatum();
     Content content = hp.getProtocolOutput(url, crawlDatum).getContent();

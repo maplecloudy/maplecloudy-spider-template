@@ -44,7 +44,6 @@ public class HUnanzhaobiaowangTermplate extends AbstractTemplate {
 
   }
 
-  @Override
   public ParseData parse(Outlink url, Content content, RunMode runMode) throws UnsupportedEncodingException, MalformedURLException {
 
     ParseData parseData = new ParseData();
@@ -555,9 +554,9 @@ public class HUnanzhaobiaowangTermplate extends AbstractTemplate {
 
     url = "http://www.hnbidding.com/";
     url = "http://www.hnbidding.com/kzjhw/index.jhtml";
-    url = "http://www.hnbidding.com/zbgg/index_2.jhtml";
-    url = "http://www.hnbidding.com/gghw/13565.jhtml";
-    url = "http://www.hnbidding.com/ggjg/17334.jhtml";
+//    url = "http://www.hnbidding.com/zbgg/index_2.jhtml";
+//    url = "http://www.hnbidding.com/gghw/13565.jhtml";
+//    url = "http://www.hnbidding.com/ggjg/17334.jhtml";
 
     HttpUtils hp = HttpUtils.getInstance();
     CrawlDatum crawlDatum = new CrawlDatum();

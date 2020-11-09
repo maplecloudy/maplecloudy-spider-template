@@ -354,7 +354,7 @@ public class XUzhouzhengfucaigouTermplate extends AbstractTemplate {
     url = "http://www.ccgp-xuzhou.gov.cn/Home/HomeIndex";
     url = "http://www.ccgp-xuzhou.gov.cn/Home/PageListJson?sidx=createdate&category_id=9&page=1";
     url = "http://www.ccgp-xuzhou.gov.cn/Home/PageListJson?sidx=createdate&category_id=9&page=2";
-    url = "http://www.ccgp-xuzhou.gov.cn/Home/PageDetailsJson?articleid=93341eda-528e-42d0-97d9-3f1caabd881e&type=9";
+//    url = "http://www.ccgp-xuzhou.gov.cn/Home/PageDetailsJson?articleid=93341eda-528e-42d0-97d9-3f1caabd881e&type=9";
     HttpUtils hp = HttpUtils.getInstance();
     CrawlDatum crawlDatum = new CrawlDatum();
     HttpParameters httpParameters = new HttpParameters();

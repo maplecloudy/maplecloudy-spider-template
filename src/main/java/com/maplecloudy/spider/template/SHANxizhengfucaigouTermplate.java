@@ -48,7 +48,6 @@ public class SHANxizhengfucaigouTermplate extends AbstractTemplate {
 
   }
 
-  @Override
   public ParseData parse(Outlink url, Content content, RunMode runMode) throws IOException {
 
     ParseData parseData = new ParseData();
@@ -541,9 +540,9 @@ public class SHANxizhengfucaigouTermplate extends AbstractTemplate {
   public static void main(String[] args) throws Exception {
     String url;
     url = "http://www.ccgp-shaanxi.gov.cn/";
-//    url = "http://www.ccgp-shaanxi.gov.cn/notice/noticeaframe.do?isgovertment=&noticetype=3&pg=1";
-    url = "http://www.ccgp-shaanxi.gov.cn/notice/noticeaframe.do?isgovertment=&noticetype=3&pg=5";
-    url = "http://www.ccgp-shaanxi.gov.cn:80/notice/noticeDetail.do?noticeguid=8a85be31751aad3101757915f28d7c2a";
+    url = "http://www.ccgp-shaanxi.gov.cn/notice/noticeaframe.do?isgovertment=&noticetype=3&pg=1";
+//    url = "http://www.ccgp-shaanxi.gov.cn/notice/noticeaframe.do?isgovertment=&noticetype=3&pg=5";
+//    url = "http://www.ccgp-shaanxi.gov.cn:80/notice/noticeDetail.do?noticeguid=8a85be31751aad3101757915f28d7c2a";
     HttpUtils hp = HttpUtils.getInstance();
     CrawlDatum crawlDatum = new CrawlDatum();
     HttpParameters httpParameters = new HttpParameters();

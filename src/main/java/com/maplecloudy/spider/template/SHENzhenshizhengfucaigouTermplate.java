@@ -605,7 +605,7 @@ public class SHENzhenshizhengfucaigouTermplate extends AbstractTemplate {
 //    url = "http://szzfcg.cn/portal/topicView.do?method=view&id=61122347&page=14";
 //    url = "http://www.szzfcg.cn/stock/stprFile.do";
 //    url = "http://www.szzfcg.cn/stock/stprFile.do?stprId=&page=637";
-    url = "http://szzfcg.cn/portal/documentView.do?method=view&id=654126881";
+//    url = "http://szzfcg.cn/portal/documentView.do?method=view&id=654126881";
     HttpUtils hp = HttpUtils.getInstance();
     CrawlDatum crawlDatum = new CrawlDatum();
     Content content = hp.getProtocolOutput(url, crawlDatum).getContent();

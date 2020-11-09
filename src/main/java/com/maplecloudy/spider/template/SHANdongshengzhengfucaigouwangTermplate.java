@@ -42,7 +42,7 @@ public class SHANdongshengzhengfucaigouwangTermplate extends AbstractTemplate {
     addUpdateLink("http://ccgp-shandong.gov.cn/sdgp2017/site/listnew.jsp?grade=city&colcode=2504&page=2", "列表第二页");
     // 网站所有有的链接类型，以及对应的正则
     addDict("首页", "http://ccgp-shandong.gov.cn/", "GET", "utf-8");
-    addDict("列表第一页", "http://ccgp-shandong.gov.cn/sdgp2017/site/listnew.jsp\\?grade=\\w+&colcode=\\d+", "GET", "utf-8");
+    addDict("列表第一页", "http://ccgp-shandong.gov.cn/sdgp2017/site/listnew.jsp\\?grade=\\w+&colcode=\\d+", "POST", "utf-8");
     addDict("列表页", "http://ccgp-shandong.gov.cn/sdgp2017/site/listnew.jsp\\?grade=\\w+&colcode=\\d+&page=\\d+", "GET", "utf-8");
     addDict("详情页", "http://ccgp-shandong.gov.cn/sdgp2017/site/listcontnew.jsp\\?colcode=\\d+&id=\\w+", "GET", "utf-8");
 
@@ -592,7 +592,8 @@ public class SHANdongshengzhengfucaigouwangTermplate extends AbstractTemplate {
     url = "http://ccgp-shandong.gov.cn/sdgp2017/site/listnew.jsp?grade=city&colcode=2504";
     url = "http://ccgp-shandong.gov.cn/sdgp2017/site/listnew.jsp?grade=city&colcode=2504&page=2";
 //    url = "http://ccgp-shandong.gov.cn/sdgp2017/site/listcontnew.jsp?colcode=2504&id=200044021";
-    url = "http://ccgp-shandong.gov.cn/sdgp2017/site/listcontnew.jsp?colcode=2504&id=201857373";
+//    url = "http://ccgp-shandong.gov.cn/sdgp2017/site/listcontnew.jsp?colcode=2504&id=201857373";
+    url = "http://ccgp-shandong.gov.cn/sdgp2017/site/listnew.jsp";
     HttpUtils hp = HttpUtils.getInstance();
     CrawlDatum crawlDatum = new CrawlDatum();
     Content content = hp.getProtocolOutput(url, crawlDatum).getContent();
