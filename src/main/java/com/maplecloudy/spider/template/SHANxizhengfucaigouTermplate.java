@@ -43,8 +43,8 @@ public class SHANxizhengfucaigouTermplate extends AbstractTemplate {
     // 网站所有有的链接类型，以及对应的正则
     addDict("首页", "http://www.ccgp-shaanxi.gov.cn/", "GET", "utf-8");
     addDict("列表第一页", "http://www.ccgp-shaanxi.gov.cn/notice/noticeaframe.do\\?isgovertment=&noticetype=\\d+&pg=1", "POST", "utf-8");
-    addDict("列表页", "http://www.ccgp-shaanxi.gov.cn/notice/noticeaframe.do\\?isgovertment=&noticetype=\\d+&pg=\\d+", "POST", "utf-8");
-    addDict("详情页", "http://www.ccgp-shaanxi.gov.cn:80/notice/noticeDetail.do\\?noticeguid=\\w", "GET", "utf-8");
+    addDict("列表页", "http://www.ccgp-shaanxi.gov.cn/notice/noticeaframe.do\\?isgovertment=&noticetype=\\d+&pg=\\d+", "GET", "utf-8");
+    addDict("详情页", "http://www.ccgp-shaanxi.gov.cn:80/notice/noticeDetail.do\\?noticeguid=\\w+", "GET", "utf-8");
 
   }
 

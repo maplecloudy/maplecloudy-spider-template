@@ -40,7 +40,7 @@ public class SUzhouzhengfucaigouwangTermplate extends AbstractTemplate {
     // 爬虫种子页面
     addSeedLink("http://czju.suzhou.gov.cn/zfcg/html/main/index.shtml", "首页");
     // 爬虫更新的需要的链接
-    addUpdateLink("http://czju.suzhou.gov.cn/zfcg/content/searchContents.action?code=1l", "列表第一页");
+    addUpdateLink("http://czju.suzhou.gov.cn/zfcg/content/searchContents.action?code=1", "列表第一页");
     addUpdateLink("http://czju.suzhou.gov.cn/zfcg/content/searchContents.action?code=2", "列表第二页");
     // 网站所有有的链接类型，以及对应的正则
     addDict("首页", "http://czju.suzhou.gov.cn/zfcg/html/main/index.shtml", "GET", "utf-8");
@@ -601,7 +601,7 @@ public class SUzhouzhengfucaigouwangTermplate extends AbstractTemplate {
     String url;
     url = "http://czju.suzhou.gov.cn/zfcg/html/main/index.shtml";
     url = "http://czju.suzhou.gov.cn/zfcg/content/searchContents.action?code=1";
-//    url = "http://czju.suzhou.gov.cn/zfcg/content/searchContents.action?code=0&page=21";
+    url = "http://czju.suzhou.gov.cn/zfcg/content/searchContents.action?code=0&page=21";
         url="http://czju.suzhou.gov.cn/zfcg/html/project/27f88761-e5ac-4f23-b2cc-0efd1daa5ff7.shtml";
     HttpUtils hp = HttpUtils.getInstance();
     CrawlDatum crawlDatum = new CrawlDatum();

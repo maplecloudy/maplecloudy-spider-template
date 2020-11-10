@@ -1,5 +1,6 @@
 package com.maplecloudy.spider.template;
 
+import com.maplecloudy.avro.util.AvroUtils;
 import com.maplecloudy.spider.parse.AbstractTemplate;
 import com.maplecloudy.spider.parse.ParseData;
 import com.maplecloudy.spider.protocol.HttpParameters;
@@ -124,6 +125,7 @@ public class SHANdongshengzhengfucaigouwangTermplate extends AbstractTemplate {
       httpParameters.setContentType(
           "application/x-www-form-urlencoded; charset=UTF-8");
       httpParameters.setMethod("http");
+      outlink.addExtend(httpParameters.getMap());
       outlinks.add(outlink);
     }
   }
@@ -592,8 +594,8 @@ public class SHANdongshengzhengfucaigouwangTermplate extends AbstractTemplate {
     url = "http://ccgp-shandong.gov.cn/sdgp2017/site/listnew.jsp?grade=city&colcode=2504";
     url = "http://ccgp-shandong.gov.cn/sdgp2017/site/listnew.jsp?grade=city&colcode=2504&page=2";
 //    url = "http://ccgp-shandong.gov.cn/sdgp2017/site/listcontnew.jsp?colcode=2504&id=200044021";
-//    url = "http://ccgp-shandong.gov.cn/sdgp2017/site/listcontnew.jsp?colcode=2504&id=201857373";
-    url = "http://ccgp-shandong.gov.cn/sdgp2017/site/listnew.jsp";
+    url = "http://ccgp-shandong.gov.cn/sdgp2017/site/listcontnew.jsp?colcode=2504&id=201857373";
+//    url = "http://ccgp-shandong.gov.cn/sdgp2017/site/listnew.jsp";
     HttpUtils hp = HttpUtils.getInstance();
     CrawlDatum crawlDatum = new CrawlDatum();
     Content content = hp.getProtocolOutput(url, crawlDatum).getContent();
@@ -611,6 +613,9 @@ public class SHANdongshengzhengfucaigouwangTermplate extends AbstractTemplate {
       System.out.println(entry.getKey() + "  ： " + entry.getValue());
 //      System.out.println(entry.getValue());
     }
+
+
+    System.out.println(AvroUtils.toString(parseData));
 //    JSONObject jsonMap = JSONObject.fromObject(map);
 //    System.out.print("bidmodel=" + jsonMap);
   }

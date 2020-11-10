@@ -40,7 +40,7 @@ public class HUAIanshizhengfucaigouwangTermplate extends AbstractTemplate {
     addDict("首页", "http://zfcgzx.huaian.gov.cn/", "GET", "utf-8");
     addDict("列表第一页", "http://zfcgzx.huaian.gov.cn/zbcg/cggg/column\\d+/list.html", "GET", "utf-8");
     addDict("列表页", "http://zfcgzx.huaian.gov.cn/zbcg/cggg/column2/list_\\d+.html", "GET", "utf-8");
-    addDict("详情页", "http://zfcgzx.huaian.gov.cn/col/17088_713786/content/202009/ff808081739e3b42017452f5d92910b1.html", "GET", "utf-8");
+    addDict("详情页", "http://zfcgzx.huaian.gov.cn/col/\\w*/\\w+/\\d*/\\w*.html", "GET", "utf-8");
 
   }
   

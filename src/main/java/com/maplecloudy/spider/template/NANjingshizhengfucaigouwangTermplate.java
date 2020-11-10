@@ -40,7 +40,8 @@ public class NANjingshizhengfucaigouwangTermplate extends AbstractTemplate {
     addDict("首页", "http://www.njgp.gov.cn/", "GET", "utf-8");
     addDict("列表第一页", "http://www.njgp.gov.cn/\\w+/\\w+/\\w*/*", "GET", "utf-8");
     addDict("列表页", "http://www.njgp.gov.cn/\\w+/\\w+/\\w*/*index_\\d+.html", "GET", "utf-8");
-    addDict("详情页", "http://www.njgp.gov.cn/\\w+/\\w+/\\w*/*/\\d+/\\w+.html", "GET", "utf-8");
+//    addDict("详情页", "http://www.njgp.gov.cn/\\w+/\\w+/\\w*/*/\\d+/\\w+.html", "GET", "utf-8");
+    addDict("详情页", "http://www.njgp.gov.cn/\\w+/\\w+/\\w*/*\\d+/\\w+_\\d+.html", "GET", "utf-8");
 
   }
   
@@ -554,7 +555,7 @@ public class NANjingshizhengfucaigouwangTermplate extends AbstractTemplate {
     url = "http://www.njgp.gov.cn/";
     url = "http://www.njgp.gov.cn/cgxx/cgfsbg/";
     url = "http://www.njgp.gov.cn/cgxx/cgfsbg/index_1.html";
-//    url = "http://www.njgp.gov.cn/cgxx/cggg/bmjzcgjg/201907/t20190710_101287.html";
+    url = "http://www.njgp.gov.cn/cgxx/cggg/bmjzcgjg/201907/t20190710_101287.html";
     HttpUtils hp = HttpUtils.getInstance();
     CrawlDatum crawlDatum = new CrawlDatum();
     Content content = hp.getProtocolOutput(url, crawlDatum).getContent();

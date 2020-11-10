@@ -578,6 +578,17 @@ public class NINGboshiguojizhaobiaowangTermplate extends AbstractTemplate {
     url = "http://www.nbbidding.com/Home/Notice/news_list?page=2";
     url = "http://www.nbbidding.com/Home/Notice/news_detail?id=198235";
     HttpUtils hp = HttpUtils.getInstance();
+    HttpParameters httpParameters = new HttpParameters();
+    httpParameters.setType("post");
+    BasicNameValuePair[] data = {
+        new BasicNameValuePair("page", "10"),
+        new BasicNameValuePair("keyword", ""),
+        new BasicNameValuePair("is_open", "1")};
+    String entity = new ObjectMapper().writeValueAsString(data);
+    httpParameters.getMap().put("x-www-form-urlencoded", entity);
+    httpParameters.setContentType(
+        "application/x-www-form-urlencoded; charset=UTF-8");
+    httpParameters.setMethod("http");
     CrawlDatum crawlDatum = new CrawlDatum();
     Content content = hp.getProtocolOutput(url, crawlDatum).getContent();
     Outlink outlink = new Outlink(url, "");

@@ -44,7 +44,6 @@ public class HEnanzhaobiaowangTermplate extends AbstractTemplate {
 
   }
 
-  @Override
   public ParseData parse(Outlink url, Content content, RunMode runMode) throws MalformedURLException, UnsupportedEncodingException {
 
     ParseData parseData = new ParseData();

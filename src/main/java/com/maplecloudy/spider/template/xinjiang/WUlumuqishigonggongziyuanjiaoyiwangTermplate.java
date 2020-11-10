@@ -1,5 +1,6 @@
 package com.maplecloudy.spider.template.xinjiang;
 
+import com.maplecloudy.avro.util.AvroUtils;
 import com.maplecloudy.spider.parse.AbstractTemplate;
 import com.maplecloudy.spider.parse.ParseData;
 import com.maplecloudy.spider.protocol.HttpParameters;
@@ -588,8 +589,8 @@ public class WUlumuqishigonggongziyuanjiaoyiwangTermplate extends AbstractTempla
     String url;
     url = "http://zwfw.wlmq.gov.cn/ggzy/";
     url = "http://zwfw.wlmq.gov.cn/EWB-FRONT/rest/frontAppCustomAction/getPageInfoListNew?code=001002&page=1";
-    url = "http://zwfw.wlmq.gov.cn/EWB-FRONT/rest/frontAppCustomAction/getPageInfoListNew?code=001002&page=2";
-        url = "http://zwfw.wlmq.gov.cn/ggzy/jyxx/001002/001002003/20200708/A850B1A90DA443CDE05310C410AC5772202007-000101.html";
+//    url = "http://zwfw.wlmq.gov.cn/EWB-FRONT/rest/frontAppCustomAction/getPageInfoListNew?code=001002&page=2";
+//        url = "http://zwfw.wlmq.gov.cn/ggzy/jyxx/001002/001002003/20200708/A850B1A90DA443CDE05310C410AC5772202007-000101.html";
     HttpUtils hp = HttpUtils.getInstance();
     CrawlDatum crawlDatum = new CrawlDatum();
     HttpParameters httpParameters = new HttpParameters();
@@ -617,6 +618,8 @@ public class WUlumuqishigonggongziyuanjiaoyiwangTermplate extends AbstractTempla
     }
 //    JSONObject jsonMap = JSONObject.fromObject(map);
 //    System.out.print("bidmodel=" + jsonMap);
+
+
   }
 
 }

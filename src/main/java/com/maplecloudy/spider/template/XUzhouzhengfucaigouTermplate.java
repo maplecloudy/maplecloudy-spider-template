@@ -44,7 +44,7 @@ public class XUzhouzhengfucaigouTermplate extends AbstractTemplate {
     // 网站所有有的链接类型，以及对应的正则
     addDict("首页", "http://www.ccgp-xuzhou.gov.cn/Home/HomeIndex", "GET", "utf-8");
     addDict("列表第一页", "http://www.ccgp-xuzhou.gov.cn/Home/PageListJson\\?sidx=createdate&category_id=\\d+&page=1", "POST", "utf-8");
-    addDict("列表页", "http://www.ccgp-xuzhou.gov.cn/Home/PageListJson\\?sidx=createdate&category_id=\\d+&page=\\d++", "POST", "utf-8");
+    addDict("列表页", "http://www.ccgp-xuzhou.gov.cn/Home/PageListJson\\?sidx=createdate&category_id=\\d+&page=\\d+", "POST", "utf-8");
     addDict("详情页", "http://www.ccgp-xuzhou.gov.cn/Home/PageDetailsJson\\?articleid=[0-9a-zA-Z_-]+&type=\\d+", "GET", "utf-8");
 
   }
@@ -354,7 +354,7 @@ public class XUzhouzhengfucaigouTermplate extends AbstractTemplate {
     url = "http://www.ccgp-xuzhou.gov.cn/Home/HomeIndex";
     url = "http://www.ccgp-xuzhou.gov.cn/Home/PageListJson?sidx=createdate&category_id=9&page=1";
     url = "http://www.ccgp-xuzhou.gov.cn/Home/PageListJson?sidx=createdate&category_id=9&page=2";
-//    url = "http://www.ccgp-xuzhou.gov.cn/Home/PageDetailsJson?articleid=93341eda-528e-42d0-97d9-3f1caabd881e&type=9";
+    url = "http://www.ccgp-xuzhou.gov.cn/Home/PageDetailsJson?articleid=93341eda-528e-42d0-97d9-3f1caabd881e&type=9";
     HttpUtils hp = HttpUtils.getInstance();
     CrawlDatum crawlDatum = new CrawlDatum();
     HttpParameters httpParameters = new HttpParameters();

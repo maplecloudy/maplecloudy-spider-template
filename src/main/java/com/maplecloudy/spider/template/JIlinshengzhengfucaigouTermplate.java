@@ -1,5 +1,6 @@
 package com.maplecloudy.spider.template;
 
+import com.maplecloudy.avro.util.AvroUtils;
 import com.maplecloudy.spider.parse.AbstractTemplate;
 import com.maplecloudy.spider.parse.ParseData;
 import com.maplecloudy.spider.protocol.HttpParameters;
@@ -108,8 +109,7 @@ public class JIlinshengzhengfucaigouTermplate extends AbstractTemplate {
           new BasicNameValuePair("categoryId", "124,125")};
       String entity = new ObjectMapper().writeValueAsString(data);
       httpParameters.getMap().put("x-www-form-urlencoded", entity);
-      httpParameters.setContentType(
-          "application/x-www-form-urlencoded; charset=UTF-8");
+      httpParameters.setContentType("application/x-www-form-urlencoded; charset=UTF-8");
       httpParameters.setMethod("http");
       outlink.addExtend(httpParameters.getMap());
       outlinks.add(outlink);
@@ -551,7 +551,7 @@ public class JIlinshengzhengfucaigouTermplate extends AbstractTemplate {
     String url;
     url = "http://www.ccgp-jilin.gov.cn/";
     url = "http://www.ccgp-jilin.gov.cn/shopHome/morePolicyNews.action?categoryId=124,125";
-//    url = "http://www.ccgp-jilin.gov.cn/shopHome/morePolicyNews.action?page=2";
+//    url = "·";
 //        url = "http://www.ccgp-jilin.gov.cn/helpFront/gotoHelpFrontList.action?articleId=148739";
 //        url = "http://www.ccgp-jilin.gov.cn/helpFront/gotoHelpFrontList.action?articleId=155679";
     HttpUtils hp = HttpUtils.getInstance();
@@ -564,8 +564,7 @@ public class JIlinshengzhengfucaigouTermplate extends AbstractTemplate {
         new BasicNameValuePair("categoryId", "124,125")};
     String entity = new ObjectMapper().writeValueAsString(data);
     httpParameters.getMap().put("x-www-form-urlencoded", entity);
-    httpParameters.setContentType(
-        "application/x-www-form-urlencoded; charset=UTF-8");
+    httpParameters.setContentType("application/x-www-form-urlencoded; charset=UTF-8");
     httpParameters.setMethod("http");
     crawlDatum.setExtendData(httpParameters.getMap());
     Content content = hp.getProtocolOutput(url, crawlDatum).getContent();
@@ -574,17 +573,19 @@ public class JIlinshengzhengfucaigouTermplate extends AbstractTemplate {
     ParseData parseData = parse.parse(outlink, content, RunMode.BOTH);
     Map<String, String> map = parseData.dataMap;
     List<Outlink> outLinks = parseData.outLinks;
-    for (Outlink outLink : outLinks) {
-      System.out.println(outLink.url);
-    }
-    Iterator<Map.Entry<String, String>> it = map.entrySet().iterator();
-    while (it.hasNext()) {
-      Map.Entry<String, String> entry = it.next();
-      System.out.println(entry.getKey() + "  ： " + entry.getValue());
-//      System.out.println(entry.getValue());
-    }
-//    JSONObject jsonMap = JSONObject.fromObject(map);
-//    System.out.print("bidmodel=" + jsonMap);
-  }
+//    for (Outlink outLink : outLinks) {
+//      System.out.println(outLink.url);
+//    }
+//    Iterator<Map.Entry<String, String>> it = map.entrySet().iterator();
+//    while (it.hasNext()) {
+//      Map.Entry<String, String> entry = it.next();
+//      System.out.println(entry.getKey() + "  ： " + entry.getValue());
+////      System.out.println(entry.getValue());
+//    }
+////    JSONObject jsonMap = JSONObject.fromObject(map);
+////    System.out.print("bidmodel=" + jsonMap);
+//  }
+    System.out.println(AvroUtils.toString(parseData));
 
+  }
 }

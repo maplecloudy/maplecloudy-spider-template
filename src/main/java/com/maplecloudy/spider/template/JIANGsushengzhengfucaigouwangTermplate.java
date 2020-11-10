@@ -574,17 +574,19 @@ public class JIANGsushengzhengfucaigouwangTermplate extends AbstractTemplate {
     ParseData parseData = parse.parse(outlink, content, RunMode.BOTH);
     Map<String, String> map = parseData.dataMap;
     List<Outlink> outLinks = parseData.outLinks;
-    for (Outlink outLink : outLinks) {
-      System.out.println(outLink.url);
-    }
-    Iterator<Map.Entry<String, String>> it = map.entrySet().iterator();
-    while (it.hasNext()) {
-      Map.Entry<String, String> entry = it.next();
-      System.out.println(entry.getKey() + "  ： " + entry.getValue());
-//      System.out.println(entry.getValue());
-    }
-//    JSONObject jsonMap = JSONObject.fromObject(map);
-//    System.out.print("bidmodel=" + jsonMap);
-  }
+//    for (Outlink outLink : outLinks) {
+//      System.out.println(outLink.url);
+//    }
+//    Iterator<Map.Entry<String, String>> it = map.entrySet().iterator();
+//    while (it.hasNext()) {
+//      Map.Entry<String, String> entry = it.next();
+//      System.out.println(entry.getKey() + "  ： " + entry.getValue());
+////      System.out.println(entry.getValue());
+//    }
+////    JSONObject jsonMap = JSONObject.fromObject(map);
+////    System.out.print("bidmodel=" + jsonMap);
+//  }
 
+
+  }
 }
